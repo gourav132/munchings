@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import Menu from "./pages/Menu";
 import BookTable from "./pages/BookTable";
 import Cart from "./pages/Cart";
@@ -12,7 +12,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { CartProvider } from "./context/CartContext";
 import { AdminProvider } from "./context/AdminContext";
 import { AuthProvider } from "./context/AuthContext";
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
+import AdminReservations from "./pages/AdminReservations";
 
 function App() {
   return (
@@ -25,16 +26,19 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/menu" element={<Menu />} />
+                <Route path="/menu/:tableId" element={<Menu />} />
                 <Route path="/book-table" element={<BookTable />} />
                 <Route path="/cart" element={<Cart />} />
+                <Route path="/cart/:tableId" element={<Cart />} />
                 <Route path="/admin/login" element={<AdminLogin />} />
-                <Route 
-                  path="/admin" 
+                <Route path="/manage" element={<AdminReservations />} />
+                <Route
+                  path="/admin"
                   element={
                     <ProtectedRoute>
                       <Admin />
                     </ProtectedRoute>
-                  } 
+                  }
                 />
               </Routes>
             </main>

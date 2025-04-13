@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { Menu, X, ShoppingCart, Utensils } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,7 +9,14 @@ const Navbar = () => {
   const { cart } = useCart();
   const location = useLocation();
 
+  // const tableNumber = location.pathname.startsWith("/menu/")
+  //   ? location.pathname.split("/menu/")[1]
+  //   : null;
+
+  const tableNumber = location.pathname.match(/\/(?:menu|cart)\/(\d+)/)?.[1];
+
   const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+  console.log("table number logging from navbar", tableNumber);
 
   return (
     <nav className="bg-amber-800 text-white shadow-lg">
@@ -36,7 +43,7 @@ const Navbar = () => {
 
           {/* Desktop menu */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link
+            {/* <Link
               to="/"
               className={`px-3 py-2 rounded-md transition ${
                 location.pathname === "/"
@@ -45,48 +52,55 @@ const Navbar = () => {
               }`}
             >
               Home
-            </Link>
+            </Link> */}
             <Link
-              to="/menu"
+              to={tableNumber ? `/menu/${tableNumber}` : "/menu"}
               className={`px-3 py-2 rounded-md transition ${
-                location.pathname === "/menu"
+                location.pathname.startsWith === "/menu/"
                   ? "bg-amber-700"
                   : "hover:bg-amber-700"
               }`}
             >
               Menu
             </Link>
-            <Link
-              to="/book-table"
-              className={`px-3 py-2 rounded-md transition ${
-                location.pathname === "/book-table"
-                  ? "bg-amber-700"
-                  : "hover:bg-amber-700"
-              }`}
-            >
-              Book a Table
-            </Link>
-            <Link
-              to="/cart"
-              className={`px-3 py-2 rounded-md transition flex items-center ${
-                location.pathname === "/cart"
-                  ? "bg-amber-700"
-                  : "hover:bg-amber-700"
-              }`}
-            >
-              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                <ShoppingCart className="h-5 w-5 mr-1" />
-                <motion.span
-                  className="bg-white text-amber-800 rounded-full h-5 w-5 flex items-center justify-center text-xs font-bold"
-                  key={totalItems}
-                  initial={{ scale: 0.6 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring", stiffness: 500 }}
+            {!tableNumber && (
+              <Link
+                to="/book-table"
+                className={`px-3 py-2 rounded-md transition ${
+                  location.pathname === "/book-table"
+                    ? "bg-amber-700"
+                    : "hover:bg-amber-700"
+                }`}
+              >
+                Book a Table
+              </Link>
+            )}
+            {tableNumber && (
+              <Link
+                to={`/cart/${tableNumber}`}
+                className={`px-3 py-2 rounded-md transition flex items-center ${
+                  location.pathname === "/cart"
+                    ? "bg-amber-700"
+                    : "hover:bg-amber-700"
+                }`}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                 >
-                  {totalItems}
-                </motion.span>
-              </motion.div>
-            </Link>
+                  <ShoppingCart className="h-5 w-5 mr-1" />
+                  <motion.span
+                    className="bg-white text-amber-800 rounded-full h-5 w-5 flex items-center justify-center text-xs font-bold"
+                    key={totalItems}
+                    initial={{ scale: 0.6 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 500 }}
+                  >
+                    {totalItems}
+                  </motion.span>
+                </motion.div>
+              </Link>
+            )}
           </div>
 
           {/* Mobile menu button */}

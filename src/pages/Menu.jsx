@@ -1,13 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { menuData } from "../data/menuData";
 import { useCart } from "../context/CartContext";
 import { Plus, Minus, ShoppingCart } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
+import { useParams, useNavigate } from "react-router-dom";
 
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState("all");
-  const { addToCart } = useCart();
+  const { addToCart, setTableNumber } = useCart();
+  const { tableNumber } = useParams(); // Extracting the table number from the url
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (tableNumber) {
+      setTableNumber(tableNumber);
+    }
+  }, [tableNumber, setTableNumber]);
 
   const categories = ["all", ...new Set(menuData.map((item) => item.category))];
 
@@ -17,16 +26,9 @@ const Menu = () => {
       : menuData.filter((item) => item.category === activeCategory);
 
   const handleAddToCart = (item) => {
-    addToCart(item);
-    toast.success(`${item.name} added to cart!`, {
-      duration: 2000,
-      position: 'bottom-right',
-      style: {
-        background: '#fef3c7',
-        color: '#92400e',
-        border: '1px solid #d97706',
-      },
-    });
+    if (tableNumber) {
+      addToCart(item);
+    }
   };
 
   return (
@@ -115,15 +117,17 @@ const Menu = () => {
                     <span className="text-sm font-semibold py-0.5 text-white capitalize bg-amber-400 px-2 rounded-full">
                       {item.category}
                     </span>
-                    <motion.button
-                      onClick={() => handleAddToCart(item)}
-                      className="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg flex items-center transition text-xs font-semibold"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <ShoppingCart className="h-4 w-4 mr-2" />
-                      Add to Order
-                    </motion.button>
+                    {tableNumber && (
+                      <motion.button
+                        onClick={() => handleAddToCart(item)}
+                        className="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg flex items-center transition text-xs font-semibold"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <ShoppingCart className="h-4 w-4 mr-2" />
+                        Add to Order
+                      </motion.button>
+                    )}
                   </div>
                 </div>
               </motion.div>

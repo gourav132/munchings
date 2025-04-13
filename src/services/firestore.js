@@ -1,4 +1,4 @@
-import { db } from '../config/firebase';
+import { db } from "../config/firebase";
 import {
   collection,
   addDoc,
@@ -8,13 +8,13 @@ import {
   getDocs,
   query,
   orderBy,
-  onSnapshot
-} from 'firebase/firestore';
+  onSnapshot,
+} from "firebase/firestore";
 
 // Menu Items
 export const addMenuItem = async (item) => {
   try {
-    const docRef = await addDoc(collection(db, 'menuItems'), item);
+    const docRef = await addDoc(collection(db, "menuItems"), item);
     return docRef.id;
   } catch (error) {
     throw error;
@@ -23,7 +23,7 @@ export const addMenuItem = async (item) => {
 
 export const updateMenuItem = async (id, item) => {
   try {
-    const menuRef = doc(db, 'menuItems', id);
+    const menuRef = doc(db, "menuItems", id);
     await updateDoc(menuRef, item);
   } catch (error) {
     throw error;
@@ -32,7 +32,7 @@ export const updateMenuItem = async (id, item) => {
 
 export const deleteMenuItem = async (id) => {
   try {
-    const menuRef = doc(db, 'menuItems', id);
+    const menuRef = doc(db, "menuItems", id);
     await deleteDoc(menuRef);
   } catch (error) {
     throw error;
@@ -40,11 +40,11 @@ export const deleteMenuItem = async (id) => {
 };
 
 export const subscribeToMenu = (callback) => {
-  const q = query(collection(db, 'menuItems'), orderBy('category'));
+  const q = query(collection(db, "menuItems"), orderBy("category"));
   return onSnapshot(q, (snapshot) => {
-    const items = snapshot.docs.map(doc => ({
+    const items = snapshot.docs.map((doc) => ({
       id: doc.id,
-      ...doc.data()
+      ...doc.data(),
     }));
     callback(items);
   });
@@ -53,9 +53,9 @@ export const subscribeToMenu = (callback) => {
 // Reservations
 export const addReservation = async (reservation) => {
   try {
-    const docRef = await addDoc(collection(db, 'reservations'), {
+    const docRef = await addDoc(collection(db, "reservations"), {
       ...reservation,
-      createdAt: new Date()
+      createdAt: new Date(),
     });
     return docRef.id;
   } catch (error) {
@@ -65,7 +65,7 @@ export const addReservation = async (reservation) => {
 
 export const updateReservationStatus = async (id, status) => {
   try {
-    const reservationRef = doc(db, 'reservations', id);
+    const reservationRef = doc(db, "reservations", id);
     await updateDoc(reservationRef, { status });
   } catch (error) {
     throw error;
@@ -73,23 +73,29 @@ export const updateReservationStatus = async (id, status) => {
 };
 
 export const subscribeToReservations = (callback) => {
-  const q = query(collection(db, 'reservations'), orderBy('createdAt', 'desc'));
+  const q = query(collection(db, "reservations"), orderBy("createdAt", "desc"));
   return onSnapshot(q, (snapshot) => {
-    const reservations = snapshot.docs.map(doc => ({
+    const reservations = snapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
-      date: doc.data().date.toDate()
+      date: doc.data().date.toDate(),
+      createdAt: doc.data().createdAt.toDate()
     }));
     callback(reservations);
   });
 };
 
+export const updateReservation = async (reservationId, updates) => {
+  const reservationRef = doc(db, "reservations", reservationId);
+  await updateDoc(reservationRef, updates);
+};
+
 // Orders
 export const addOrder = async (order) => {
   try {
-    const docRef = await addDoc(collection(db, 'orders'), {
+    const docRef = await addDoc(collection(db, "orders"), {
       ...order,
-      createdAt: new Date()
+      createdAt: new Date(),
     });
     return docRef.id;
   } catch (error) {
@@ -99,7 +105,7 @@ export const addOrder = async (order) => {
 
 export const updateOrderStatus = async (id, status) => {
   try {
-    const orderRef = doc(db, 'orders', id);
+    const orderRef = doc(db, "orders", id);
     await updateDoc(orderRef, { status });
   } catch (error) {
     throw error;
@@ -107,12 +113,12 @@ export const updateOrderStatus = async (id, status) => {
 };
 
 export const subscribeToOrders = (callback) => {
-  const q = query(collection(db, 'orders'), orderBy('createdAt', 'desc'));
+  const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
   return onSnapshot(q, (snapshot) => {
-    const orders = snapshot.docs.map(doc => ({
+    const orders = snapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
-      createdAt: doc.data().createdAt.toDate()
+      createdAt: doc.data().createdAt.toDate(),
     }));
     callback(orders);
   });

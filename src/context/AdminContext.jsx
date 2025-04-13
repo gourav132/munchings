@@ -1,20 +1,20 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useAuth } from './AuthContext';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { useAuth } from "./AuthContext";
 import {
   subscribeToReservations,
   subscribeToOrders,
   updateReservationStatus as updateReservationStatusFirestore,
   updateOrderStatus as updateOrderStatusFirestore,
   addReservation as addReservationFirestore,
-  addOrder as addOrderFirestore
-} from '../services/firestore';
+  addOrder as addOrderFirestore,
+} from "../services/firestore";
 
 export const AdminContext = createContext(undefined);
 
 export const useAdmin = () => {
   const context = useContext(AdminContext);
   if (!context) {
-    throw new Error('useAdmin must be used within an AdminProvider');
+    throw new Error("useAdmin must be used within an AdminProvider");
   }
   return context;
 };
@@ -30,9 +30,11 @@ export const AdminProvider = ({ children }) => {
 
     if (auth?.currentUser) {
       // Subscribe to reservations
-      unsubscribeReservations = subscribeToReservations((updatedReservations) => {
-        setReservations(updatedReservations);
-      });
+      unsubscribeReservations = subscribeToReservations(
+        (updatedReservations) => {
+          setReservations(updatedReservations);
+        }
+      );
 
       // Subscribe to orders
       unsubscribeOrders = subscribeToOrders((updatedOrders) => {
@@ -54,7 +56,7 @@ export const AdminProvider = ({ children }) => {
     try {
       await updateReservationStatusFirestore(id, status);
     } catch (error) {
-      console.error('Error updating reservation status:', error);
+      console.error("Error updating reservation status:", error);
       throw error;
     }
   };
@@ -63,7 +65,7 @@ export const AdminProvider = ({ children }) => {
     try {
       await updateOrderStatusFirestore(id, status);
     } catch (error) {
-      console.error('Error updating order status:', error);
+      console.error("Error updating order status:", error);
       throw error;
     }
   };
@@ -72,7 +74,7 @@ export const AdminProvider = ({ children }) => {
     try {
       await addReservationFirestore(reservation);
     } catch (error) {
-      console.error('Error adding reservation:', error);
+      console.error("Error adding reservation:", error);
       throw error;
     }
   };
@@ -81,7 +83,7 @@ export const AdminProvider = ({ children }) => {
     try {
       await addOrderFirestore(order);
     } catch (error) {
-      console.error('Error adding order:', error);
+      console.error("Error adding order:", error);
       throw error;
     }
   };
@@ -93,12 +95,10 @@ export const AdminProvider = ({ children }) => {
     updateReservationStatus,
     updateOrderStatus,
     addReservation,
-    addOrder
+    addOrder,
   };
 
   return (
-    <AdminContext.Provider value={value}>
-      {children}
-    </AdminContext.Provider>
+    <AdminContext.Provider value={value}>{children}</AdminContext.Provider>
   );
 };
