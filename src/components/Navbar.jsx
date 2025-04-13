@@ -120,6 +120,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile menu */}
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -131,18 +132,7 @@ const Navbar = () => {
           >
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               <Link
-                to="/"
-                className={`block px-3 py-2 rounded-md transition ${
-                  location.pathname === "/"
-                    ? "bg-amber-700"
-                    : "hover:bg-amber-700"
-                }`}
-                onClick={() => setIsOpen(false)}
-              >
-                Home
-              </Link>
-              <Link
-                to="/menu"
+                to={tableNumber ? `/menu/${tableNumber}` : "/menu"}
                 className={`block px-3 py-2 rounded-md transition ${
                   location.pathname === "/menu"
                     ? "bg-amber-700"
@@ -152,31 +142,35 @@ const Navbar = () => {
               >
                 Menu
               </Link>
-              <Link
-                to="/book-table"
-                className={`block px-3 py-2 rounded-md transition ${
-                  location.pathname === "/book-table"
-                    ? "bg-amber-700"
-                    : "hover:bg-amber-700"
-                }`}
-                onClick={() => setIsOpen(false)}
-              >
-                Book a Table
-              </Link>
-              <Link
-                to="/cart"
-                className={`px-3 py-2 rounded-md transition flex items-center ${
-                  location.pathname === "/cart"
-                    ? "bg-amber-700"
-                    : "hover:bg-amber-700"
-                }`}
-                onClick={() => setIsOpen(false)}
-              >
-                <ShoppingCart className="h-5 w-5 mr-1" />
-                <span className="bg-white text-amber-800 rounded-full h-5 w-5 flex items-center justify-center text-xs font-bold">
-                  {totalItems}
-                </span>
-              </Link>
+              {!tableNumber && (
+                <Link
+                  to="/book-table"
+                  className={`block px-3 py-2 rounded-md transition ${
+                    location.pathname === "/book-table"
+                      ? "bg-amber-700"
+                      : "hover:bg-amber-700"
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  Book a Table
+                </Link>
+              )}
+              {tableNumber && (
+                <Link
+                  to={`/cart/${tableNumber}`}
+                  className={`px-3 py-2 rounded-md transition flex items-center ${
+                    location.pathname === "/cart"
+                      ? "bg-amber-700"
+                      : "hover:bg-amber-700"
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  <ShoppingCart className="h-5 w-5 mr-1" />
+                  <span className="bg-white text-amber-800 rounded-full h-5 w-5 flex items-center justify-center text-xs font-bold">
+                    {totalItems}
+                  </span>
+                </Link>
+              )}
             </div>
           </motion.div>
         )}
