@@ -3,6 +3,7 @@ import { useCart } from "../context/CartContext";
 import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft } from "lucide-react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { addOrder } from "../services/firestore";
 
 const Cart = () => {
   const { cart, updateQuantity, removeFromCart, clearCart, setTableNumber } =
@@ -25,25 +26,74 @@ const Cart = () => {
   const tax = subtotal * 0.08; // 8% tax
   const total = subtotal + tax;
 
-  const handlePlaceOrder = (e) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handlePlaceOrder = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError(null);
 
-    // In a real app, you would send the order to your backend
-    console.log("Order placed:", {
-      items: cart,
-      tableNumber,
-      specialInstructions,
-      subtotal,
-      tax,
-      total,
-    });
+    try {
+      const orderData = {
+        items: cart,
+        tableNumber,
+        specialInstructions,
+        subtotal,
+        tax,
+        total,
+        status: "new",
+      };
 
-    setOrderPlaced(true);
-    clearCart();
+      await addOrder(orderData);
+      setOrderPlaced(true);
+      clearCart();
+    } catch (err) {
+      setError("Failed to place order. Please try again.");
+      console.error("Error placing order:", err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
+  // Add loading spinner component before the return statement
+  const LoadingSpinner = () => (
+    <motion.div
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div
+        className="bg-white p-6 rounded-lg shadow-xl flex flex-col items-center"
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 200 }}
+      >
+        <motion.div
+          className="w-16 h-16 border-4 border-amber-600 border-t-transparent rounded-full"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+        />
+        <p className="mt-4 text-lg font-medium text-amber-800">
+          Placing your order...
+        </p>
+      </motion.div>
+    </motion.div>
+  );
   return (
     <AnimatePresence mode="wait">
+      {isLoading && <LoadingSpinner />}
+      {error && (
+        <motion.div
+          className="fixed top-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -50 }}
+        >
+          {error}
+        </motion.div>
+      )}
       {orderPlaced ? (
         <motion.div
           className="bg-amber-50 min-h-screen py-12"

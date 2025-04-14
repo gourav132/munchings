@@ -29,41 +29,54 @@ const Home = () => {
     <div>
       {/* Hero Section */}
       <section
-        className="relative bg-cover bg-center h-[80vh]"
+        className="relative bg-cover bg-center h-screen"
         style={{
           backgroundImage:
             "url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')",
+          backgroundAttachment: "fixed",
         }}
       >
-        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/40"></div>
         <div className="absolute inset-0 flex items-center justify-center">
           <motion.div
-            className="text-center text-white px-4"
+            className="text-center text-white px-4 max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 1 }}
           >
-            <motion.h1
-              className="text-4xl md:text-6xl font-bold mb-4"
+            <motion.span
+              className="text-amber-400 uppercase tracking-widest text-sm font-medium mb-4 block"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
-              Welcome to Munchings
-            </motion.h1>
-            <motion.p
-              className="text-xl md:text-2xl mb-8"
+              Welcome to
+            </motion.span>
+            <motion.h1
+              className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
             >
-              Experience the finest culinary delights
-            </motion.p>
-            <motion.div
-              className="flex flex-col sm:flex-row justify-center gap-4"
+              <span className="text-amber-400">Munchings</span>
+              <span className="block text-3xl md:text-4xl mt-4 font-light">
+                Where Every Flavor Tells a Story
+              </span>
+            </motion.h1>
+            <motion.p
+              className="text-xl md:text-2xl mb-12 text-gray-200 font-light max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
+            >
+              Experience culinary excellence in every bite, where tradition
+              meets innovation
+            </motion.p>
+            <motion.div
+              className="flex flex-col sm:flex-row justify-center gap-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -71,7 +84,7 @@ const Home = () => {
               >
                 <Link
                   to="/book-table"
-                  className="bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-6 text-xs rounded-lg transition flex items-center justify-center"
+                  className="bg-amber-600 hover:bg-amber-700 text-white font-semibold py-4 px-8 text-sm rounded-full transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-amber-500/20"
                 >
                   <Calendar className="mr-2 h-5 w-5" />
                   Book a Table
@@ -83,7 +96,7 @@ const Home = () => {
               >
                 <Link
                   to="/menu"
-                  className="bg-white hover:bg-gray-100 text-amber-800 font-bold py-3 px-6 rounded-lg text-xs transition flex items-center justify-center"
+                  className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-semibold py-4 px-8 rounded-full text-sm border border-white/30 transition-all duration-300 flex items-center justify-center"
                 >
                   <UtensilsCrossed className="mr-2 h-5 w-5" />
                   View Menu
@@ -204,22 +217,30 @@ const Home = () => {
       </section>
 
       {/* Featured Dishes */}
-      <section className="py-24 bg-gradient-to-b from-white to-amber-50">
+      <section className="py-32 bg-gradient-to-b from-white to-amber-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-20"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeIn}
           >
-            <h2 className="text-4xl font-bold text-amber-800 mb-6 tracking-tight">
-              Featured Dishes
+            <motion.span
+              className="text-amber-600 uppercase tracking-widest text-sm font-medium mb-4 block"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+            >
+              Our Specialties
+            </motion.span>
+            <h2 className="text-5xl font-bold text-gray-900 mb-6 tracking-tight">
+              Featured <span className="text-amber-600">Dishes</span>
             </h2>
-            <div className="w-32 h-1 bg-amber-600 mx-auto mb-8 opacity-60"></div>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto font-light">
-              Discover our chef's special creations that have become customer
-              favorites
+            <div className="w-24 h-1 bg-amber-600 mx-auto mb-8 opacity-60"></div>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto font-light leading-relaxed">
+              Discover our chef's masterfully crafted dishes, where every
+              ingredient tells a story of flavor and tradition
             </p>
           </motion.div>
 

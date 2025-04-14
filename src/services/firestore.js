@@ -79,7 +79,7 @@ export const subscribeToReservations = (callback) => {
       id: doc.id,
       ...doc.data(),
       date: doc.data().date.toDate(),
-      createdAt: doc.data().createdAt.toDate()
+      createdAt: doc.data().createdAt.toDate(),
     }));
     callback(reservations);
   });
@@ -122,4 +122,13 @@ export const subscribeToOrders = (callback) => {
     }));
     callback(orders);
   });
+};
+
+export const deleteOrder = async (id) => {
+  try {
+    const orderRef = doc(db, "orders", id);
+    await deleteDoc(orderRef);
+  } catch (error) {
+    throw error;
+  }
 };

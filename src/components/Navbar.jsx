@@ -9,14 +9,9 @@ const Navbar = () => {
   const { cart } = useCart();
   const location = useLocation();
 
-  // const tableNumber = location.pathname.startsWith("/menu/")
-  //   ? location.pathname.split("/menu/")[1]
-  //   : null;
-
   const tableNumber = location.pathname.match(/\/(?:menu|cart)\/(\d+)/)?.[1];
 
   const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-  console.log("table number logging from navbar", tableNumber);
 
   return (
     <nav className="bg-amber-800 text-white shadow-lg">
@@ -36,7 +31,7 @@ const Navbar = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                munching
+                munching's
               </motion.span>
             </Link>
           </div>

@@ -38,7 +38,8 @@ export const AdminProvider = ({ children }) => {
 
       // Subscribe to orders
       unsubscribeOrders = subscribeToOrders((updatedOrders) => {
-        setOrders(updatedOrders);
+        console.log("Orders received in AdminContext:", updatedOrders);
+        setOrders(updatedOrders || []);
       });
     } else {
       // Reset state when user is not authenticated

@@ -39,7 +39,20 @@ const ReservationsTab = ({
             ? doc.data().date.toDate()
             : doc.data().date,
         }));
-        setReservations(reservationsData);
+
+        // Sort reservations by date and time in descending order
+        const sortedReservations = reservationsData.sort((a, b) => {
+          // First compare by date
+          const dateComparison = b.date - a.date;
+          if (dateComparison !== 0) return dateComparison;
+
+          // If dates are equal, compare by time
+          const aTime = a.date.getHours() * 60 + a.date.getMinutes();
+          const bTime = b.date.getHours() * 60 + b.date.getMinutes();
+          return bTime - aTime;
+        });
+
+        setReservations(sortedReservations);
         setLoading(false);
       },
       (error) => {

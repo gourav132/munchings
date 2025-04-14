@@ -49,9 +49,10 @@ const MenuForm = ({ item, setItem, onSubmit, onCancel, isAdding }) => {
             onChange={(e) => setItem({ ...item, category: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-amber-500 focus:border-amber-500"
           >
-            <option value="starters">Starters</option>
-            <option value="mains">Mains</option>
-            <option value="desserts">Desserts</option>
+            <option value="Starters">Starters</option>
+            <option value="Mains">Mains</option>
+            <option value="Desserts">Desserts</option>
+            <option value="Mocktail">Mocktail</option>
           </select>
         </div>
         <div>

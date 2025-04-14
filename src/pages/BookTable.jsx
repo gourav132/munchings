@@ -199,34 +199,42 @@ const BookTable = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <h1 className="text-4xl font-bold text-amber-800 mb-4">
+              <motion.span
+                className="text-amber-600 uppercase tracking-widest text-sm font-medium mb-4 block"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.8 }}
+              >
+                Make a Reservation
+              </motion.span>
+              <h1 className="text-5xl font-bold text-amber-800 mb-4">
                 Reserve Your Table
               </h1>
               <div className="w-24 h-1 bg-amber-600 mx-auto mb-6"></div>
-              <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-                Book your dining experience at Savoria. We recommend making
-                reservations at least 2 hours in advance.
+              <p className="text-lg text-gray-700 max-w-3xl mx-auto font-light">
+                Experience exceptional dining at Munchings. For parties larger
+                than 10, please call us directly at (555) 123-4567.
               </p>
             </motion.div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Booking Form */}
               <motion.div
-                className="bg-white rounded-lg shadow-md p-8"
+                className="bg-white rounded-2xl shadow-xl p-8 backdrop-blur-lg backdrop-filter"
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                <h2 className="text-2xl font-semibold text-amber-800 mb-6">
+                <h2 className="text-2xl font-bold text-amber-800 mb-8">
                   Reservation Details
                 </h2>
 
-                <form onSubmit={handleSubmit}>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
                       <label
                         htmlFor="name"
-                        className="block text-gray-700 font-medium mb-2"
+                        className="block text-sm font-medium text-gray-700"
                       >
                         Full Name
                       </label>
@@ -237,17 +245,17 @@ const BookTable = () => {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200"
                         placeholder="John Doe"
                         whileFocus={{ scale: 1.02 }}
                         transition={{ type: "spring", stiffness: 300 }}
                       />
                     </div>
 
-                    <div>
+                    <div className="space-y-2">
                       <label
                         htmlFor="email"
-                        className="block text-gray-700 font-medium mb-2"
+                        className="block text-sm font-medium text-gray-700"
                       >
                         Email Address
                       </label>
@@ -258,7 +266,7 @@ const BookTable = () => {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200"
                         placeholder="john@example.com"
                         whileFocus={{ scale: 1.02 }}
                         transition={{ type: "spring", stiffness: 300 }}
@@ -266,11 +274,11 @@ const BookTable = () => {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
                       <label
                         htmlFor="phone"
-                        className="block text-gray-700 font-medium mb-2"
+                        className="block text-sm font-medium text-gray-700"
                       >
                         Phone Number
                       </label>
@@ -281,17 +289,17 @@ const BookTable = () => {
                         value={formData.phone}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200"
                         placeholder="(555) 123-4567"
                         whileFocus={{ scale: 1.02 }}
                         transition={{ type: "spring", stiffness: 300 }}
                       />
                     </div>
 
-                    <div>
+                    <div className="space-y-2">
                       <label
                         htmlFor="guests"
-                        className="block text-gray-700 font-medium mb-2"
+                        className="block text-sm font-medium text-gray-700"
                       >
                         Number of Guests
                       </label>
@@ -302,7 +310,7 @@ const BookTable = () => {
                           value={formData.guests}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500 appearance-none"
+                          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 appearance-none"
                           whileFocus={{ scale: 1.02 }}
                           transition={{ type: "spring", stiffness: 300 }}
                         >
@@ -318,11 +326,11 @@ const BookTable = () => {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
                       <label
                         htmlFor="date"
-                        className="block text-gray-700 font-medium mb-2"
+                        className="block text-sm font-medium text-gray-700"
                       >
                         Date
                       </label>
@@ -336,7 +344,7 @@ const BookTable = () => {
                           min={today}
                           max={maxDateStr}
                           required
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500"
+                          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200"
                           whileFocus={{ scale: 1.02 }}
                           transition={{ type: "spring", stiffness: 300 }}
                         />
@@ -344,10 +352,10 @@ const BookTable = () => {
                       </div>
                     </div>
 
-                    <div>
+                    <div className="space-y-2">
                       <label
                         htmlFor="time"
-                        className="block text-gray-700 font-medium mb-2"
+                        className="block text-sm font-medium text-gray-700"
                       >
                         Time
                       </label>
@@ -358,7 +366,7 @@ const BookTable = () => {
                           value={formData.time}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500 appearance-none"
+                          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 appearance-none"
                           whileFocus={{ scale: 1.02 }}
                           transition={{ type: "spring", stiffness: 300 }}
                         >
@@ -374,10 +382,10 @@ const BookTable = () => {
                     </div>
                   </div>
 
-                  <div className="mb-6">
+                  <div className="space-y-2">
                     <label
                       htmlFor="specialRequests"
-                      className="block text-gray-700 font-medium mb-2"
+                      className="block text-sm font-medium text-gray-700"
                     >
                       Special Requests (Optional)
                     </label>
@@ -387,8 +395,8 @@ const BookTable = () => {
                       value={formData.specialRequests}
                       onChange={handleChange}
                       rows={4}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500"
-                      placeholder="Any special requests, dietary restrictions, or occasion details..."
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200"
+                      placeholder="Any dietary restrictions, allergies, or special occasions..."
                       whileFocus={{ scale: 1.02 }}
                       transition={{ type: "spring", stiffness: 300 }}
                     ></motion.textarea>
@@ -396,12 +404,32 @@ const BookTable = () => {
 
                   <motion.button
                     type="submit"
-                    className="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-6 rounded-lg transition"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    disabled={isLoading}
+                    className={`w-full bg-amber-600 text-white font-bold py-4 px-8 rounded-lg shadow-lg hover:bg-amber-700 transition-all duration-300 flex items-center justify-center ${
+                      isLoading ? "opacity-75 cursor-not-allowed" : ""
+                    }`}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    Confirm Reservation
+                    {isLoading ? (
+                      <div className="flex items-center">
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
+                        Processing...
+                      </div>
+                    ) : (
+                      "Confirm Reservation"
+                    )}
                   </motion.button>
+
+                  {error && (
+                    <motion.div
+                      className="bg-red-50 text-red-700 p-4 rounded-lg mt-4"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                    >
+                      {error}
+                    </motion.div>
+                  )}
                 </form>
               </motion.div>
 
@@ -410,111 +438,76 @@ const BookTable = () => {
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
+                className="space-y-8"
               >
                 <motion.div
-                  className="bg-white rounded-lg shadow-md p-8 mb-8"
+                  className="bg-white rounded-2xl shadow-xl p-8 backdrop-blur-lg backdrop-filter"
                   whileHover={{ y: -5 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <h2 className="text-2xl font-semibold text-amber-800 mb-6">
-                    Reservation Information
+                  <h2 className="text-2xl font-bold text-amber-800 mb-6">
+                    Reservation Guidelines
                   </h2>
 
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     <motion.div
-                      className="flex items-start"
+                      className="flex items-start space-x-4"
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.3, delay: 0.5 }}
                     >
-                      <div className="flex-shrink-0 h-6 w-6 text-amber-600 mr-3">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
+                      <div className="flex-shrink-0 w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center">
+                        <Clock className="h-6 w-6 text-amber-600" />
                       </div>
                       <div>
-                        <h3 className="text-lg font-medium text-gray-900">
-                          Reservation Hours
+                        <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                          Hours of Operation
                         </h3>
                         <p className="text-gray-600">
                           Monday - Friday: 11:00 AM - 10:00 PM
-                        </p>
-                        <p className="text-gray-600">
+                          <br />
                           Saturday - Sunday: 10:00 AM - 11:00 PM
                         </p>
                       </div>
                     </motion.div>
 
                     <motion.div
-                      className="flex items-start"
+                      className="flex items-start space-x-4"
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.3, delay: 0.7 }}
                     >
-                      <div className="flex-shrink-0 h-6 w-6 text-amber-600 mr-3">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
+                      <div className="flex-shrink-0 w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center">
+                        <Users className="h-6 w-6 text-amber-600" />
                       </div>
                       <div>
-                        <h3 className="text-lg font-medium text-gray-900">
-                          Reservation Policy
+                        <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                          Group Reservations
                         </h3>
                         <p className="text-gray-600">
-                          We hold reservations for 15 minutes past the scheduled
-                          time. After that, tables may be given to waiting
-                          guests.
+                          For parties larger than 10, please contact us directly
+                          for special arrangements and private dining options.
                         </p>
                       </div>
                     </motion.div>
 
                     <motion.div
-                      className="flex items-start"
+                      className="flex items-start space-x-4"
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.3, delay: 0.9 }}
                     >
-                      <div className="flex-shrink-0 h-6 w-6 text-amber-600 mr-3">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
+                      <div className="flex-shrink-0 w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center">
+                        <Calendar className="h-6 w-6 text-amber-600" />
                       </div>
                       <div>
-                        <h3 className="text-lg font-medium text-gray-900">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-1">
                           Cancellation Policy
                         </h3>
                         <p className="text-gray-600">
-                          Please notify us at least 2 hours in advance for
-                          cancellations or changes to your reservation.
+                          Please notify us at least 4 hours in advance for
+                          cancellations. For same-day cancellations, contact us
+                          directly.
                         </p>
                       </div>
                     </motion.div>
@@ -522,59 +515,21 @@ const BookTable = () => {
                 </motion.div>
 
                 <motion.div
-                  className="bg-amber-100 rounded-lg shadow-md p-8"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 1.1 }}
+                  className="bg-amber-50 rounded-2xl p-8 border border-amber-100"
                   whileHover={{ y: -5 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <h2 className="text-2xl font-semibold text-amber-800 mb-6">
-                    Need Help?
-                  </h2>
-                  <p className="text-gray-700 mb-4">
-                    For parties larger than 10, special events, or if you need
-                    immediate assistance, please contact us directly:
+                  <h3 className="text-lg font-semibold text-amber-800 mb-4">
+                    Need Assistance?
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    Our team is here to help you plan your perfect dining
+                    experience. For immediate assistance or special requests,
+                    please don't hesitate to call us.
                   </p>
-                  <motion.div
-                    className="flex items-center text-amber-800 font-medium mb-2"
-                    whileHover={{ x: 5 }}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 mr-2"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                      />
-                    </svg>
-                    (555) 123-4567
-                  </motion.div>
-                  <motion.div
-                    className="flex items-center text-amber-800 font-medium"
-                    whileHover={{ x: 5 }}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 mr-2"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
-                    reservations@savoria.com
-                  </motion.div>
+                  <p className="text-amber-800 font-semibold">
+                    Call us: (555) 123-4567
+                  </p>
                 </motion.div>
               </motion.div>
             </div>
